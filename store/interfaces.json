@@ -1,0 +1,6 @@
+{
+  "bikefinder": {
+    "component": "BikeFinder",
+    "composition": "children"
+  }
+}
