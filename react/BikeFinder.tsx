@@ -4,19 +4,22 @@ import { canUseDOM } from "vtex.render-runtime";
 import styles from "./styles.css";
 
 interface BikeFinderProps {
-
+  guideKey: string
 }
 
-const BikeFinder: StorefrontFunctionComponent<BikeFinderProps> = ({ }) => {
-  const guideKey = "3e52abd5-738d-43ab-bdb2-d64e469a6ab5";
+const BikeFinder: StorefrontFunctionComponent<BikeFinderProps> = ({ guideKey }) => {
+  const outputKey = guideKey;
   const renderTo = "preezie-widget-div-id";
-  const renderData = {
-    guideKey,
-    version: "1.0.0",
-    renderTo
-  }
 
-  const data = `<script type="text/javascript">PREEZIE_GUIDE.render([${renderData}]);</script>`;
+  const data = `<script type="text/javascript">
+    PREEZIE_GUIDE.render([
+      {
+        guideKey: "${outputKey}",
+        version: "1.0.0",
+        renderTo: "${renderTo}"
+      }
+    ]);
+  </script>`;
 
   return (
     <div className={styles.container}>
@@ -31,7 +34,12 @@ const BikeFinder: StorefrontFunctionComponent<BikeFinderProps> = ({ }) => {
 BikeFinder.schema = {
   title: "Bike Finder",
   type: "object",
-  properties: {}
+  properties: {
+    guideKey: {
+      title: "Guide Key",
+      type: "string"
+    }
+  }
 }
 
 export default BikeFinder;
