@@ -8,24 +8,24 @@ interface BikeFinderProps {
 }
 
 const BikeFinder: StorefrontFunctionComponent<BikeFinderProps> = ({ guideKey }) => {
-  const outputKey = guideKey;
-  const renderTo = "preezie-widget-div-id";
 
-  const data = `<script type="text/javascript">
-    PREEZIE_GUIDE.render([
+  useEffect(() => {
+    // @ts-expect-error
+    window.PREEZIE_GUIDE.render([
       {
-        guideKey: "${outputKey}",
+        guideKey,
         version: "1.0.0",
-        renderTo: "${renderTo}"
-      }
+        renderTo: "preezie-widget-div-id",
+      },
     ]);
-  </script>`;
+
+    return () => { };
+  }, []);
 
   return (
     <div className={styles.container}>
       <div className={styles.wrapper}>
-        <div id={renderTo}></div>
-        <div dangerouslySetInnerHTML={{ __html: data }}></div>
+        <div id="preezie-widget-div-id"></div>
       </div>
     </div>
   );
